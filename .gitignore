@@ -31,7 +31,7 @@ Thumbs.db
 
 Keys.cs
 *.nuspec
-
+*.nupkg
 # Mac bundle stuff
 *.dmg
 *.app
