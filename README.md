@@ -10,7 +10,7 @@ If you wish to contribute, you're welcome to submit pull requests or get in touc
 
 
 ## Obtaining API key
-Use the [Google Developers Console](https://console.developers.google.com/) to enable the 'Google Places API Web Service' and create a 'Server' API key credential. In both cases do not use the iOS options.
+Use the [Google Developers Console](https://console.developers.google.com/) to enable the 'Google Places API Web Service' and create a new API key.
 
 Note: if you are developing for multi-platform you will likely need a separate API key for each device, and set your key property based on OS:
 ```csharp
