@@ -30,6 +30,7 @@ test-results/
 Thumbs.db
 
 Keys.cs
+*.nuspec
 
 # Mac bundle stuff
 *.dmg
