@@ -15,6 +15,7 @@ namespace PlacesBarExamples
 			search_bar.Type = PlaceType.Cities;
 			search_bar.PlacesRetrieved += Search_Bar_PlacesRetrieved;
 			search_bar.TextChanged += Search_Bar_TextChanged;
+			search_bar.MinimumSearchText = 2;
 			results_list.ItemSelected += Results_List_ItemSelected;
 		}
 
