@@ -51,3 +51,6 @@ A Place object contains ```Name```, ```Latitude```, ```Longitude``` and ```Raw``
 
 ### Implementing PlacesBar
 See the PlacesBarExamples solution included to see a Xamarin Forms project implementing the ```PlacesBar``` and ```GetPlace()``` features.
+
+## Notes
+There is a known bug in Xamarin.Forms with Android N 7.0 where if a SearchBar's height is not set, the search bar will not display. Please explicitly set HeightRequest value to avoid [this](https://bugzilla.xamarin.com/show_bug.cgi?id=43975) issue.
