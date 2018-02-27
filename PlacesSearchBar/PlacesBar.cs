@@ -24,19 +24,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+using Newtonsoft.Json;
 using System;
+using System.Diagnostics;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using System.Net.Http;
-using System.Diagnostics;
-using Newtonsoft.Json;
 
 namespace DurianCode.PlacesSearchBar
 {
-	/// <summary>
-	/// Places retrieved event handler.
-	/// </summary>
-	public delegate void PlacesRetrievedEventHandler(object sender, AutoCompleteResult result);
+    /// <summary>
+    /// Places retrieved event handler.
+    /// </summary>
+    public delegate void PlacesRetrievedEventHandler(object sender, AutoCompleteResult result);
 
 	/// <summary>
 	/// Places bar.
@@ -52,6 +52,11 @@ namespace DurianCode.PlacesSearchBar
 		/// The location bias.
 		/// </summary>
 		LocationBias locationBias;
+
+        /// <summary>
+        /// The components
+        /// </summary>
+        Components components;
 
 		/// <summary>
 		/// The API key.
@@ -95,6 +100,21 @@ namespace DurianCode.PlacesSearchBar
 				locationBias = value;
 			}
 		}
+
+        /// <summary>
+        /// Gets or sets the components
+        /// </summary>
+        public Components Components
+        {
+            get
+            {
+                return components;
+            }
+            set
+            {
+                components = value;
+            }
+        }
 
 		/// <summary>
 		/// Gets or sets the API key.
@@ -220,6 +240,8 @@ namespace DurianCode.PlacesSearchBar
 
 			if (locationBias != null)
 				constructedUrl = constructedUrl + locationBias;
+            if (components != null)
+                constructedUrl += components;
 
 			return constructedUrl;
 		}
