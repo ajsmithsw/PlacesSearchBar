@@ -3,7 +3,7 @@ using Xamarin.Forms;
 
 namespace PlacesBarExamples
 {
-	public partial class PlacesBarExamplesPage : ContentPage
+    public partial class PlacesBarExamplesPage : ContentPage
 	{
 		string GooglePlacesApiKey = Keys.ApiKey;  // Replace this with your api key
 
@@ -12,7 +12,8 @@ namespace PlacesBarExamples
 			InitializeComponent();
 
 			search_bar.ApiKey = GooglePlacesApiKey;
-			search_bar.Type = PlaceType.Cities;
+			search_bar.Type = PlaceType.Address;
+            search_bar.Components = new Components("country:au|country:nz"); // Restrict results to Australia and New Zealand
 			search_bar.PlacesRetrieved += Search_Bar_PlacesRetrieved;
 			search_bar.TextChanged += Search_Bar_TextChanged;
 			search_bar.MinimumSearchText = 2;
