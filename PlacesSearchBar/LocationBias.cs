@@ -24,6 +24,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+using System.Globalization;
+
 namespace DurianCode.PlacesSearchBar
 {
 	/// <summary>
@@ -67,7 +69,10 @@ namespace DurianCode.PlacesSearchBar
 		/// that represents the current <see cref="T:DurianCode.PlacesSearchBar.LocationBias"/> for PlacesBar API calls..</returns>
 		public override string ToString()
 		{
-			return $"&location={latitude},{longitude}&radius={radius}";
+            var latFormatted = latitude.ToString(CultureInfo.InvariantCulture);
+		    var lonFormatted = longitude.ToString(CultureInfo.InvariantCulture);
+
+		    return $"&location={latFormatted},{lonFormatted}&radius={radius}";
 		}
 	}
 
