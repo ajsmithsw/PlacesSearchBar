@@ -4,9 +4,9 @@ VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlacesSearchBar", "PlacesSearchBar\PlacesSearchBar.csproj", "{DE49953C-3F8E-4901-9057-C0239AB27917}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlacesBarExamples.Droid", "PlacesBarExamples\PlacesBarExamples.Droid\PlacesBarExamples.Droid.csproj", "{BBE4B993-01B2-4440-9BD1-B3D9019BF390}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlacesBarExamples.Droid", "PlacesBarExamples\Droid\PlacesBarExamples.Droid.csproj", "{BBE4B993-01B2-4440-9BD1-B3D9019BF390}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlacesBarExamples.iOS", "PlacesBarExamples\PlacesBarExamples.iOS\PlacesBarExamples.iOS.csproj", "{E84D6F48-B7DA-4584-926D-4480A9E31370}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlacesBarExamples.iOS", "PlacesBarExamples\iOS\PlacesBarExamples.iOS.csproj", "{E84D6F48-B7DA-4584-926D-4480A9E31370}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlacesBarExamples", "PlacesBarExamples\PlacesBarExamples\PlacesBarExamples.csproj", "{166DE862-5282-4BCA-AE5C-4DDFB1059913}"
 EndProject
