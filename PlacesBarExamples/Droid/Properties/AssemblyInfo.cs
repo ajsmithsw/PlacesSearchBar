@@ -3,15 +3,14 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using Android.App;
 
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-[assembly: AssemblyTitle("PlacesBarExamples.Android")]
+// Information about this assembly is defined by the following attributes.
+// Change them to the values specific to your project.
+[assembly: AssemblyTitle("PlacesBarExamples.Droid")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("PlacesBarExamples.Android")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCopyright("(c) Alexander Smith")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]

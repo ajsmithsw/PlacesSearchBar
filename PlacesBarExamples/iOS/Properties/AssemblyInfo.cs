@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("PlacesBarExamples.iOS")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCopyright("(c) Alexander Smith")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
