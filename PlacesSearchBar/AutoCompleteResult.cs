@@ -24,16 +24,18 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace DurianCode.PlacesSearchBar
 {
-	/// <summary>
-	/// Auto complete result.
-	/// </summary>
-	public class AutoCompleteResult
-	{
+    /// <summary>
+    /// Auto complete result.
+    /// </summary>
+    //This should really be renamed to AutoCompleteResultEventArgs but did not want to introduce breaking change.
+    public class AutoCompleteResult : EventArgs
+    {
 		/// <summary>
 		/// Gets or sets the status.
 		/// </summary>

@@ -17,6 +17,12 @@
             this.components = components;
         }
 
+        /// <summary>
+        /// Returns a formatted <see cref="T:System.String"/> 
+        /// that represents the current <see cref="T:DurianCode.PlacesSearchBar.Components"/> for PlacesBar API calls.
+        /// </summary>
+        /// <returns>A formatted <see cref="T:System.String"/> 
+        /// that represents the current <see cref="T:DurianCode.PlacesSearchBar.Components"/> for PlacesBar API calls..</returns>
         public override string ToString()
         {
             return $"&components={components}";
