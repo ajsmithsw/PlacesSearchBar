@@ -44,46 +44,46 @@ namespace DurianCode.PlacesSearchBar
 	public class PlacesBar : SearchBar
 	{
 		/// <summary>
-		/// The place type.
+		/// Backing store for the Type property.
 		/// </summary>
-		PlaceType placeType = PlaceType.All;
+		public static readonly BindableProperty PlaceTypeProperty = BindableProperty.Create(nameof(Type), typeof(PlaceType), typeof(PlacesBar), PlaceType.All, BindingMode.OneWay, (BindableProperty.ValidateValueDelegate)null, (BindableProperty.BindingPropertyChangedDelegate)null, (BindableProperty.BindingPropertyChangingDelegate)null, (BindableProperty.CoerceValueDelegate)null, (BindableProperty.CreateDefaultValueDelegate)null); 
 
 		/// <summary>
-		/// The location bias.
+		/// Backing store for the Bias property.
 		/// </summary>
-		LocationBias locationBias;
+        public static readonly BindableProperty LocationBiasProperty = BindableProperty.Create(nameof(Bias), typeof(LocationBias), typeof(PlacesBar), (object)null, BindingMode.OneWay, (BindableProperty.ValidateValueDelegate)null, (BindableProperty.BindingPropertyChangedDelegate)null, (BindableProperty.BindingPropertyChangingDelegate)null, (BindableProperty.CoerceValueDelegate)null, (BindableProperty.CreateDefaultValueDelegate)null);
 
         /// <summary>
-        /// The components
+        /// Backing store for the Components property.
         /// </summary>
-        Components components;
+        public static readonly BindableProperty ComponentsProperty = BindableProperty.Create(nameof(Components), typeof(Components), typeof(PlacesBar), (object)null, BindingMode.OneWay, (BindableProperty.ValidateValueDelegate)null, (BindableProperty.BindingPropertyChangedDelegate)null, (BindableProperty.BindingPropertyChangingDelegate)null, (BindableProperty.CoerceValueDelegate)null, (BindableProperty.CreateDefaultValueDelegate)null);
 
-		/// <summary>
-		/// The API key.
-		/// </summary>
-		string apiKey;
+        /// <summary>
+        /// Backing store for the ApiKey property.
+        /// </summary>
+        public static readonly BindableProperty ApiKeyProperty = BindableProperty.Create(nameof(ApiKey), typeof(string), typeof(PlacesBar), string.Empty, BindingMode.OneWay, (BindableProperty.ValidateValueDelegate)null, (BindableProperty.BindingPropertyChangedDelegate)null, (BindableProperty.BindingPropertyChangingDelegate)null, (BindableProperty.CoerceValueDelegate)null, (BindableProperty.CreateDefaultValueDelegate)null);
 
-		/// <summary>
-		/// The minimum search text.
-		/// </summary>
-		int minimumSearchText;
+        /// <summary>
+        /// Backing store for the MinimumSearchText property.
+        /// </summary>
+        public static readonly BindableProperty MinimumSearchTextProperty = BindableProperty.Create(nameof(MinimumSearchText), typeof(int), typeof(PlacesBar), 2, BindingMode.OneWay, (BindableProperty.ValidateValueDelegate)null, (BindableProperty.BindingPropertyChangedDelegate)null, (BindableProperty.BindingPropertyChangingDelegate)null, (BindableProperty.CoerceValueDelegate)null, (BindableProperty.CreateDefaultValueDelegate)null);
 
-		#region Property accessors
-		/// <summary>
-		/// Gets or sets the place type.
-		/// </summary>
-		/// <value>The type.</value>
-		public PlaceType Type
+        #region Property accessors
+        /// <summary>
+        /// Gets or sets the place type.
+        /// </summary>
+        /// <value>The type.</value>
+        public PlaceType Type
 		{
 			get
 			{
-				return placeType;
+				return (PlaceType) this.GetValue(PlacesBar.PlaceTypeProperty);
 			}
 			set
 			{
-				placeType = value;
-			}
-		}
+                this.SetValue(PlacesBar.PlaceTypeProperty, (object)value);
+            }
+        }
 
 		/// <summary>
 		/// Gets or sets the location bias.
@@ -93,13 +93,13 @@ namespace DurianCode.PlacesSearchBar
 		{
 			get
 			{
-				return locationBias;
-			}
-			set
+                return (LocationBias)this.GetValue(PlacesBar.LocationBiasProperty);
+            }
+            set
 			{
-				locationBias = value;
-			}
-		}
+                this.SetValue(PlacesBar.LocationBiasProperty, (object)value);
+            }
+        }
 
         /// <summary>
         /// Gets or sets the components
@@ -108,11 +108,11 @@ namespace DurianCode.PlacesSearchBar
         {
             get
             {
-                return components;
+                return (Components)this.GetValue(PlacesBar.ComponentsProperty);
             }
             set
             {
-                components = value;
+                this.SetValue(PlacesBar.ComponentsProperty, (object)value);
             }
         }
 
@@ -124,13 +124,14 @@ namespace DurianCode.PlacesSearchBar
 		{
 			get
 			{
-				return apiKey;
-			}
-			set
+                return (string)this.GetValue(PlacesBar.ApiKeyProperty);
+
+            }
+            set
 			{
-				apiKey = value;
-			}
-		}
+                this.SetValue(PlacesBar.ApiKeyProperty, (object)value);
+            }
+        }
 
 		/// <summary>
 		/// Gets or sets the minimum search text.
@@ -140,19 +141,26 @@ namespace DurianCode.PlacesSearchBar
 		{
 			get
 			{
-				return minimumSearchText;
-			}
-			set
+                return (int)this.GetValue(PlacesBar.MinimumSearchTextProperty);
+
+            }
+            set
 			{
-				minimumSearchText = value;
-			}
-		}
+                this.SetValue(PlacesBar.MinimumSearchTextProperty, (object)value);
+            }
+        }
 		#endregion
 
 		/// <summary>
 		/// The places retrieved handler.
 		/// </summary>
-		public PlacesRetrievedEventHandler PlacesRetrieved;
+		public event PlacesRetrievedEventHandler PlacesRetrieved;
+
+        protected virtual void OnPlacesRetrieved(AutoCompleteResult e)
+        {
+            PlacesRetrievedEventHandler handler = PlacesRetrieved;
+            handler?.Invoke(this, e);
+        }
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="T:DurianCode.PlacesSearchBar.PlacesBar"/> class.
@@ -169,19 +177,19 @@ namespace DurianCode.PlacesSearchBar
 		/// <param name="e">E.</param>
 		async void OnTextChanged(object sender, TextChangedEventArgs e)
 		{
-			if (!string.IsNullOrEmpty(e.NewTextValue) && e.NewTextValue.Length >= minimumSearchText)
+			if (!string.IsNullOrEmpty(e.NewTextValue) && e.NewTextValue.Length >= MinimumSearchText)
 			{
 				var predictions = await GetPlaces(e.NewTextValue);
 				if (PlacesRetrieved != null && predictions != null)
-					PlacesRetrieved(this, predictions);
+					OnPlacesRetrieved(predictions);
 				else
-					PlacesRetrieved(this, new AutoCompleteResult());
-			}
-			else
+                    OnPlacesRetrieved(new AutoCompleteResult());
+            }
+            else
 			{
-				PlacesRetrieved(this, new AutoCompleteResult());
-			}
-		}
+                OnPlacesRetrieved(new AutoCompleteResult());
+            }
+        }
 
 		/// <summary>
 		/// Calls the Google Places API to retrieve autofill suggestions
@@ -190,7 +198,7 @@ namespace DurianCode.PlacesSearchBar
 		/// <param name="newTextValue">New text value.</param>
 		async Task<AutoCompleteResult> GetPlaces(string newTextValue)
 		{
-			if (string.IsNullOrEmpty(apiKey))
+			if (string.IsNullOrEmpty(ApiKey))
 			{
 				throw new Exception(
 					string.Format("You have not assigned a Google API key to PlacesBar"));
@@ -235,13 +243,13 @@ namespace DurianCode.PlacesSearchBar
 		{
 			var url = "https://maps.googleapis.com/maps/api/place/autocomplete/json";
 			var input = Uri.EscapeUriString(newTextValue);
-			var pType = PlaceTypeValue(placeType);
-			var constructedUrl = $"{url}?input={input}&types={pType}&key={apiKey}";
+			var pType = PlaceTypeValue(Type);
+			var constructedUrl = $"{url}?input={input}&types={pType}&key={ApiKey}";
 
-			if (locationBias != null)
-				constructedUrl = constructedUrl + locationBias;
-            if (components != null)
-                constructedUrl += components;
+			if (Bias != null)
+				constructedUrl = constructedUrl + Bias;
+            if (Components != null)
+                constructedUrl += Components;
 
 			return constructedUrl;
 		}
