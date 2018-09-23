@@ -21,6 +21,19 @@ public static string ApiKey = Device.OS == TargetPlatform.iOS ? "add_ios_key_her
 ```
 
 ## Usage
+Add the search bar namespace to your Xaml file:
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage ...
+             xmlns:places="clr-namespace:DurianCode.PlacesSearchBar;assembly=PlacesSearchBar">
+```
+...and then add the search bar to your layout:
+```xml
+<StackLayout>
+        ...
+        <places:PlacesBar x:Name="search_bar" />
+```
+
 ### The PlacesBar has the following properties and methods:
 
 #### Type
