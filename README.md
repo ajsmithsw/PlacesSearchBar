@@ -6,7 +6,7 @@ An extension of Xamarin.Forms SearchBar control for implementing Google Places A
 
 
 ## Contributing
-I have a full time job and I don't get paid to offer customer support for this package :) If you have problems, please make an attempt at fixing and improving the code, and raise a pull request. If you still can't solve your problem then raise an issue, but please ensure that you include as much information as possible. Reports of 'It doesn't work' don't help the community.
+If you have problems, please make an attempt at fixing and improving the code, and raise a pull request. If you still can't solve your problem then raise an issue, but please ensure that you include as much information as possible (stack traces, steps to reproduce). Please ensure that your issue is related to this library, not the general usage/debugging of the standard Xamarin Forms search bar.
 
 
 ## Obtaining API key
