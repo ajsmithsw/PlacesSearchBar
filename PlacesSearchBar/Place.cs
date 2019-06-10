@@ -64,13 +64,13 @@ namespace DurianCode.PlacesSearchBar
 		/// Gets or sets the latitude.
 		/// </summary>
 		/// <value>The latitude.</value>
-		public double Latitude { get; set; }
+		public double? Latitude { get; set; }
 
 		/// <summary>
 		/// Gets or sets the longitude.
 		/// </summary>
 		/// <value>The longitude.</value>
-		public double Longitude { get; set; }
+		public double? Longitude { get; set; }
 
 		/// <summary>
 		/// Gets or sets the individual address components.
@@ -85,10 +85,16 @@ namespace DurianCode.PlacesSearchBar
 		public string FormattedAddress { get; set; }
 
 		/// <summary>
+		/// Gets or sets the (formatted) phone number
+		/// </summary>
+		/// <value>The phone number.</value>
+		public string PhoneNumberFormatted { get; set; }
+
+		/// <summary>
 		/// Gets or sets the (international) phone number
 		/// </summary>
 		/// <value>The phone number.</value>
-		public string PhoneNumber { get; set; }
+		public string PhoneNumberInternational { get; set; }
 
 		/// <summary>
 		/// Gets the types of this prediction
@@ -98,10 +104,10 @@ namespace DurianCode.PlacesSearchBar
 		public List<string> Types { get; set; }
 
 		/// <summary>
-		/// Gets or sets the URL.
+		/// Gets or sets the Website URL.
 		/// </summary>
-		/// <value>The URL.</value>
-		public string Url { get; set; }
+		/// <value>The Website URL.</value>
+		public string Website { get; set; }
 
 		/// <summary>
 		/// Gets or sets the Vicinity.
@@ -127,21 +133,22 @@ namespace DurianCode.PlacesSearchBar
 		/// <param name="jsonObject">Json object.</param>
 		public Place(JObject jsonObject)
 		{
-			ID                = jsonObject["result"]["id"]?.Value<string>() ?? null;
-			Place_ID          = jsonObject["result"]["place_id"].Value<string>();
-			Reference         = jsonObject["result"]["reference"].Value<string>();
-			Name              = jsonObject["result"]["name"].Value<string>();
-			Latitude          = jsonObject["result"]["geometry"]["location"]["lat"].Value<double>();
-			Longitude         = jsonObject["result"]["geometry"]["location"]["lng"].Value<double>();
-			AddressComponents = jsonObject["result"]["address_components"].Value<JArray>().Select(p => AddressComponent.FromJSON(p.Value<JObject>())).ToList();
-			FormattedAddress  = jsonObject["result"]["formatted_address"]?.Value<string>() ?? string.Empty;
-			PhoneNumber       = jsonObject["result"]["international_phone_number"]?.Value<string>() ?? string.Empty;
-			Types             = jsonObject["result"]["types"].Value<JArray>().Select(p => p.Value<string>()).ToList();
-			Url               = jsonObject["result"]["url"]?.Value<string>() ?? string.Empty;
-			Vicinity          = jsonObject["result"]["vicinity"]?.Value<string>() ?? string.Empty;
-			UTCOffset         = jsonObject["result"]["utc_offset"]?.Value<int>();
+			ID                       = jsonObject["result"]["id"]?.Value<string>();
+			Place_ID                 = jsonObject["result"]["place_id"]?.Value<string>() ?? string.Empty;
+			Reference                = jsonObject["result"]["reference"]?.Value<string>() ?? string.Empty;
+			Name                     = jsonObject["result"]["name"]?.Value<string>() ?? string.Empty;
+			Latitude                 = jsonObject["result"]?["geometry"]?["location"]?["lat"]?.Value<double>();
+			Longitude                = jsonObject["result"]?["geometry"]?["location"]?["lng"]?.Value<double>();
+			AddressComponents        = jsonObject["result"]["address_components"]?.Value<JArray>()?.Select(p => AddressComponent.FromJSON(p.Value<JObject>()))?.ToList() ?? new List<AddressComponent>();
+			FormattedAddress         = jsonObject["result"]["formatted_address"]?.Value<string>() ?? string.Empty;
+			PhoneNumberFormatted     = jsonObject["result"]["formatted_phone_number"]?.Value<string>() ?? string.Empty;
+			PhoneNumberInternational = jsonObject["result"]["international_phone_number"]?.Value<string>() ?? string.Empty;
+			Types                    = jsonObject["result"]["types"]?.Value<JArray>()?.Select(p => p.Value<string>())?.ToList() ?? new List<string>();
+			Website                  = jsonObject["result"]["website"]?.Value<string>() ?? string.Empty;
+			Vicinity                 = jsonObject["result"]["vicinity"]?.Value<string>() ?? string.Empty;
+			UTCOffset                = jsonObject["result"]["utc_offset"]?.Value<int>();
 
-			Raw               = jsonObject.ToString();
+			Raw                      = jsonObject.ToString();
 		}
 
 		public AddressComponent GetAddressComponentOrNull(string type)
