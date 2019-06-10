@@ -67,6 +67,11 @@ namespace DurianCode.PlacesSearchBar
         /// Backing store for the MinimumSearchText property.
         /// </summary>
         public static readonly BindableProperty MinimumSearchTextProperty = BindableProperty.Create(nameof(MinimumSearchText), typeof(int), typeof(PlacesBar), 2, BindingMode.OneWay, (BindableProperty.ValidateValueDelegate)null, (BindableProperty.BindingPropertyChangedDelegate)null, (BindableProperty.BindingPropertyChangingDelegate)null, (BindableProperty.CoerceValueDelegate)null, (BindableProperty.CreateDefaultValueDelegate)null);
+		
+        /// <summary>
+        /// Backing store for the MinimumSearchText property.
+        /// </summary>
+        public static readonly BindableProperty LanguageProperty = BindableProperty.Create(nameof(Language), typeof(GoogleAPILanguage), typeof(PlacesBar), GoogleAPILanguage.Unset, BindingMode.OneWay, (BindableProperty.ValidateValueDelegate)null, (BindableProperty.BindingPropertyChangedDelegate)null, (BindableProperty.BindingPropertyChangingDelegate)null, (BindableProperty.CoerceValueDelegate)null, (BindableProperty.CreateDefaultValueDelegate)null);
 
         #region Property accessors
         /// <summary>
@@ -149,6 +154,26 @@ namespace DurianCode.PlacesSearchBar
                 this.SetValue(PlacesBar.MinimumSearchTextProperty, (object)value);
             }
         }
+
+		/// <summary>
+		/// Gets or sets the language for the API call.
+		/// The language code, indicating in which language the results should be returned, if possible.
+		/// Searches are also biased to the selected language; results in the selected language may be given a higher ranking
+		/// </summary>
+		/// <value>The languagey.</value>
+		public GoogleAPILanguage Language
+		{
+			get
+			{
+				return (GoogleAPILanguage)this.GetValue(PlacesBar.LanguageProperty);
+
+			}
+			set
+			{
+				this.SetValue(PlacesBar.LanguageProperty, (object)value);
+			}
+		}
+
 		#endregion
 
 		/// <summary>
@@ -250,6 +275,8 @@ namespace DurianCode.PlacesSearchBar
 				constructedUrl = constructedUrl + Bias;
             if (Components != null)
                 constructedUrl += Components;
+
+			if (Language != GoogleAPILanguage.Unset) constructedUrl += "&Language=" + GoogleAPILanguageHelper.ToAPIString(Language);
 
 			return constructedUrl;
 		}
