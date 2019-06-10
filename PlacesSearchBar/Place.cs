@@ -37,6 +37,24 @@ namespace DurianCode.PlacesSearchBar
 	public class Place
 	{
 		/// <summary>
+		/// Gets or sets the identifier (can be NULL).
+		/// </summary>
+		/// <value>The identifier.</value>
+		public string ID { get; set; }
+
+		/// <summary>
+		/// Gets or sets the place identifier.
+		/// </summary>
+		/// <value>The place identifier.</value>
+		public string Place_ID { get; set; }
+
+		/// <summary>
+		/// Gets or sets the reference.
+		/// </summary>
+		/// <value>The reference.</value>
+		public string Reference { get; set; }
+
+		/// <summary>
 		/// Gets or sets the name.
 		/// </summary>
 		/// <value>The name.</value>
@@ -61,6 +79,43 @@ namespace DurianCode.PlacesSearchBar
 		public List<AddressComponent> AddressComponents { get; set; }
 
 		/// <summary>
+		/// Gets or sets the address (formatted)
+		/// </summary>
+		/// <value>The formatted address.</value>
+		public string FormattedAddress { get; set; }
+
+		/// <summary>
+		/// Gets or sets the (international) phone number
+		/// </summary>
+		/// <value>The phone number.</value>
+		public string PhoneNumber { get; set; }
+
+		/// <summary>
+		/// Gets the types of this prediction
+		/// see https://developers.google.com/places/web-service/supported_types
+		/// </summary>
+		/// <value>The types of the prediction.</value>
+		public List<string> Types { get; set; }
+
+		/// <summary>
+		/// Gets or sets the URL.
+		/// </summary>
+		/// <value>The URL.</value>
+		public string Url { get; set; }
+
+		/// <summary>
+		/// Gets or sets the Vicinity.
+		/// </summary>
+		/// <value>The Vicinity.</value>
+		public string Vicinity { get; set; }
+
+		/// <summary>
+		/// Gets or sets the UTC Offset (NULL if not set).
+		/// </summary>
+		/// <value>The UTC Offset.</value>
+		public int? UTCOffset { get; set; }
+
+		/// <summary>
 		/// Gets or sets the raw json value.
 		/// </summary>
 		/// <value>json string.</value>
@@ -72,11 +127,21 @@ namespace DurianCode.PlacesSearchBar
 		/// <param name="jsonObject">Json object.</param>
 		public Place(JObject jsonObject)
 		{
+			ID                = jsonObject["result"]["id"]?.Value<string>() ?? null;
+			Place_ID          = jsonObject["result"]["place_id"].Value<string>();
+			Reference         = jsonObject["result"]["reference"].Value<string>();
 			Name              = jsonObject["result"]["name"].Value<string>();
 			Latitude          = jsonObject["result"]["geometry"]["location"]["lat"].Value<double>();
 			Longitude         = jsonObject["result"]["geometry"]["location"]["lng"].Value<double>();
 			AddressComponents = jsonObject["result"]["address_components"].Value<JArray>().Select(p => AddressComponent.FromJSON(p.Value<JObject>())).ToList();
-			Raw       = jsonObject.ToString();
+			FormattedAddress  = jsonObject["result"]["formatted_address"]?.Value<string>() ?? string.Empty;
+			PhoneNumber       = jsonObject["result"]["international_phone_number"]?.Value<string>() ?? string.Empty;
+			Types             = jsonObject["result"]["types"].Value<JArray>().Select(p => p.Value<string>()).ToList();
+			Url               = jsonObject["result"]["url"]?.Value<string>() ?? string.Empty;
+			Vicinity          = jsonObject["result"]["vicinity"]?.Value<string>() ?? string.Empty;
+			UTCOffset         = jsonObject["result"]["utc_offset"]?.Value<int>();
+
+			Raw               = jsonObject.ToString();
 		}
 
 		public AddressComponent GetAddressComponentOrNull(string type)
