@@ -177,7 +177,7 @@
 				case GoogleAPILanguage.Vietnamese:              return "vi";
 				case GoogleAPILanguage.Zulu:                    return "zu";
 					
-				case GoogleAPILanguage.Unset                    return "zu";
+				case GoogleAPILanguage.Unset:                   return "zu";
 				default:                                        return "";
 			}
 		}

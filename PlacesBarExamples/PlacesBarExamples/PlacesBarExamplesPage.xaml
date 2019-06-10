@@ -1,7 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
 		xmlns:local="clr-namespace:PlacesBarExamples" x:Class="PlacesBarExamples.PlacesBarExamplesPage"
-		xmlns:custom="clr-namespace:DurianCode.PlacesSearchBar;assembly=PlacesSearchBar">
+		xmlns:custom="clr-namespace:DurianCode.PlacesSearchBar;assembly=PlacesSearchBar"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		mc:Ignorable="d">
 	<ContentPage.Padding>
 		<OnPlatform x:TypeArguments="Thickness" iOS="0, 20, 0, 0" Android="0" />
 	</ContentPage.Padding>
@@ -15,7 +18,7 @@
 				AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="SizeProportional" >
 				<ListView.ItemTemplate>
 					<DataTemplate>
-						<TextCell Text="{Binding Description}" Detail="{Binding Place_ID}" />
+						<TextCell d:DataContext="{d:DesignInstance custom:AutoCompletePrediction}" Text="{Binding MainText}" Detail="{Binding SecondaryText}" />
 					</DataTemplate>
 				</ListView.ItemTemplate>
 			</ListView>

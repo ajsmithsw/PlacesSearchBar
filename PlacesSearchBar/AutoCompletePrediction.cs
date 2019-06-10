@@ -25,6 +25,7 @@
 // THE SOFTWARE.
 
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace DurianCode.PlacesSearchBar
 {
@@ -37,29 +38,51 @@ namespace DurianCode.PlacesSearchBar
 		/// Gets or sets the description.
 		/// </summary>
 		/// <value>The description.</value>
-		[JsonProperty("description")]
 		public string Description { get; set; }
 
 		/// <summary>
 		/// Gets or sets the identifier.
 		/// </summary>
 		/// <value>The identifier.</value>
-		[JsonProperty("id")]
 		public string ID { get; set; }
 
 		/// <summary>
 		/// Gets or sets the place identifier.
 		/// </summary>
 		/// <value>The place identifier.</value>
-		[JsonProperty("place_id")]
 		public string Place_ID { get; set; }
 
 		/// <summary>
 		/// Gets or sets the reference.
 		/// </summary>
 		/// <value>The reference.</value>
-		[JsonProperty("reference")]
 		public string Reference { get; set; }
+
+		/// <summary>
+		/// Gets the main text for UI display
+		/// </summary>
+		/// <value>The main text.</value>
+		public string MainText { get; set; }
+
+		/// <summary>
+		/// Gets the secondary text for UI display
+		/// </summary>
+		/// <value>The secondary text.</value>
+		public string SecondaryText { get; set; }
+
+		public static AutoCompletePrediction FromJson(JObject json)
+		{
+			var r = new AutoCompletePrediction();
+
+			r.Description   = json["description"].Value<string>();
+			r.ID            = json["id"].Value<string>();
+			r.Place_ID      = json["place_id"].Value<string>();
+			r.Reference     = json["reference"].Value<string>();
+			r.MainText      = json["structured_formatting"]["main_text"].Value<string>();
+			r.SecondaryText = json["structured_formatting"]["secondary_text"].Value<string>();
+
+			return r;
+		}
 	}
 
 }
