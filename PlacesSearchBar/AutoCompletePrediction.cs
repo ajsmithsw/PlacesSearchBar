@@ -26,7 +26,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace DurianCode.PlacesSearchBar
@@ -98,7 +97,6 @@ namespace DurianCode.PlacesSearchBar
 				Terms         = json["terms"].Value<JArray>().Select(p => p["value"].Value<string>()).ToList(),
 				Types         = json["types"].Value<JArray>().Select(p => p.Value<string>()).ToList()
 			};
-
 
 			return r;
 		}

@@ -24,6 +24,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json.Linq;
 
 namespace DurianCode.PlacesSearchBar
@@ -52,9 +55,15 @@ namespace DurianCode.PlacesSearchBar
 		public double Longitude { get; set; }
 
 		/// <summary>
-		/// Gets or sets the raw.
+		/// Gets or sets the individual address components.
 		/// </summary>
-		/// <value>The raw.</value>
+		/// <value>The address components.</value>
+		public List<AddressComponent> AddressComponents { get; set; }
+
+		/// <summary>
+		/// Gets or sets the raw json value.
+		/// </summary>
+		/// <value>json string.</value>
 		public string Raw { get; set; }
 
 		/// <summary>
@@ -63,10 +72,32 @@ namespace DurianCode.PlacesSearchBar
 		/// <param name="jsonObject">Json object.</param>
 		public Place(JObject jsonObject)
 		{
-			Name = (string) jsonObject["result"]["name"];
-			Latitude = (double)jsonObject["result"]["geometry"]["location"]["lat"];
-			Longitude = (double)jsonObject["result"]["geometry"]["location"]["lng"];
-			Raw = jsonObject.ToString();
+			Name              = jsonObject["result"]["name"].Value<string>();
+			Latitude          = jsonObject["result"]["geometry"]["location"]["lat"].Value<double>();
+			Longitude         = jsonObject["result"]["geometry"]["location"]["lng"].Value<double>();
+			AddressComponents = jsonObject["result"]["address_components"].Value<JArray>().Select(p => AddressComponent.FromJSON(p.Value<JObject>())).ToList();
+			Raw       = jsonObject.ToString();
 		}
+
+		public AddressComponent GetAddressComponentOrNull(string type)
+		{
+			foreach (var component in AddressComponents)
+			{
+				if (component.Types.Contains(type)) return component;
+			}
+			return null;
+		}
+
+		public AddressComponent AdminArea       => GetAddressComponentOrNull("administrative_area_level_1");
+		public AddressComponent SubAdminArea    => GetAddressComponentOrNull("administrative_area_level_2");
+		public AddressComponent SubSubAdminArea => GetAddressComponentOrNull("administrative_area_level_3");
+		public AddressComponent Locality        => GetAddressComponentOrNull("locality");
+		public AddressComponent SubLocality     => GetAddressComponentOrNull("sublocality_level_1") ?? GetAddressComponentOrNull("sublocality");
+		public AddressComponent Thoroughfare    => GetAddressComponentOrNull("route");
+		public AddressComponent SubThoroughfare => GetAddressComponentOrNull("street_number");
+		public AddressComponent PostalCode      => GetAddressComponentOrNull("postal_code");
+		public AddressComponent Country         => GetAddressComponentOrNull("country");
+		public AddressComponent StreetName      => GetAddressComponentOrNull("route");
+		public AddressComponent StreetNumber    => GetAddressComponentOrNull("street_number");
 	}
 }
