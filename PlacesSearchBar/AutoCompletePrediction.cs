@@ -89,7 +89,7 @@ namespace DurianCode.PlacesSearchBar
 			var r = new AutoCompletePrediction
 			{
 				Description   = json["description"].Value<string>(),
-				ID            = json["id"].Value<string>(),
+				// This throws NULL exception now. ID            = json["id"].Value<string>(),
 				Place_ID      = json["place_id"].Value<string>(),
 				Reference     = json["reference"].Value<string>(),
 				MainText      = json["structured_formatting"]["main_text"].Value<string>(),
