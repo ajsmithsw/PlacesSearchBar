@@ -1,5 +1,7 @@
 # Places Search Bar
 
+#### **PLEASE NOTE** This repository and unlisted nuget package are no longer supported. Issues will be closed. Thank you all for supporting this project. Please feel free to make use of the code as per the [License](https://github.com/ajsmithsw/PlacesSearchBar/blob/master/LICENSE.txt). If you do use the code, you may optionally wish to credit the original author, which would be appreciated but is not required.
+
 An extension of Xamarin.Forms SearchBar control for implementing Google Places Autocomplete API.
 
 <center><img src="https://2.bp.blogspot.com/-rI4zz5S5RnA/WKy9bWl6K7I/AAAAAAAAE3k/Tbo8u25M720LJ-5ij0nDnAgNEXeZA8wOgCLcB/s1600/PlacesSearchBar.png" /> </center>
